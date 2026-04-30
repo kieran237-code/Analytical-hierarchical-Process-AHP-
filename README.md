@@ -55,7 +55,7 @@ Saisissez votre objectif principal (ex: "Choisir un ordinateur") et ajoutez au m
 Identifiez les options disponibles (ex: Asus, Dell, MacBook). Pour chaque alternative, saisissez une valeur brute ou un score préliminaire pour chaque critère.
 
 ### 3. Comparaison Paire par Paire
-Utilisez les sliders pour comparer l'importance relative de chaque critère l'un par rapport à l'autre selon l'échelle suivante[cite: 1] :
+Utilisez les sliders pour comparer l'importance relative de chaque critère l'un par rapport à l'autre selon l'échelle suivante:
 *   **1 :** Importance égale.
 *   **3 :** Importance modérée.
 *   **5 :** Importance forte.
