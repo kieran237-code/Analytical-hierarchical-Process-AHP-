@@ -7,8 +7,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Bar } from "react-chartjs-2";
-import { RefreshCcw, Trophy, AlertTriangle, CheckCircle } from "lucide-react";
+
 
 // ✅ CETTE ÉTAPE EST OBLIGATOIRE
 ChartJS.register(
