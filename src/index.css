@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@layer components {
+  .btn-primary {
+    @apply flex items-center gap-2 bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-md shadow-blue-100 active:scale-95;
+  }
+  .btn-secondary {
+    @apply flex items-center gap-2 bg-white text-slate-600 border border-slate-200 px-6 py-2.5 rounded-xl font-bold hover:bg-slate-50 transition-all active:scale-95;
+  }
+  .btn-success {
+    @apply flex items-center gap-2 bg-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-emerald-700 transition-all shadow-md shadow-emerald-100 active:scale-95;
+  }
+}
