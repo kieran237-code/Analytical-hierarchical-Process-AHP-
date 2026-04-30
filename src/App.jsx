@@ -188,7 +188,10 @@ export default function App() {
 
       {/* FOOTER DISCRET */}
       <footer className="text-center py-8 text-slate-400 text-sm">
-        Analytical hierarchical Process (AHP) — Outil d'aide à la décision multicritère, pour faire un meilleur choix
+       <p className="text-slate-400 text-sm max-w-md mx-auto">
+  <strong>Analytical hierarchical Process (AHP)</strong> — Simplifiez vos décisions complexes en utilisant 
+  la méthode de hiérarchie multicritère pour obtenir des résultats objectifs et cohérents.
+</p>
       </footer>
     </div>
   );
