@@ -6,13 +6,40 @@ export default function PreferenceInput({ criteria, setMatrix }) {
   const [prefs, setPrefs] = useState({});
   const [isGenerated, setIsGenerated] = useState(false);
 
+  // 🔥 Échelle complète AHP avec inverses
+  const scaleOptions = [
+    { label: "1/9", value: 1 / 9 },
+    { label: "1/8", value: 1 / 8 },
+    { label: "1/7", value: 1 / 7 },
+    { label: "1/6", value: 1 / 6 },
+    { label: "1/5", value: 1 / 5 },
+    { label: "1/4", value: 1 / 4 },
+    { label: "1/3 ", value: 1 / 3 },
+    { label: "1/2", value: 1 / 2 },
+
+    { label: "1", value: 1 },
+
+    { label: "2", value: 2 },
+    { label: "3 ", value: 3 },
+    { label: "4", value: 4 },
+    { label: "5 ", value: 5 },
+    { label: "6", value: 6 },
+    { label: "7 ", value: 7 },
+    { label: "8", value: 8 },
+    { label: "9 ", value: 9 }
+  ];
+
   const handleChange = (i, j, value) => {
-    setPrefs(prev => ({ ...prev, [`${i}-${j}`]: parseFloat(value) }));
-    setIsGenerated(false); // Cache le message si l'utilisateur modifie une valeur
+    setPrefs(prev => ({
+      ...prev,
+      [`${i}-${j}`]: parseFloat(value)
+    }));
+    setIsGenerated(false);
   };
 
   const generateMatrix = () => {
     const matrix = Array(n).fill(0).map(() => Array(n).fill(1));
+
     for (let i = 0; i < n; i++) {
       for (let j = i + 1; j < n; j++) {
         const val = prefs[`${i}-${j}`] || 1;
@@ -20,47 +47,77 @@ export default function PreferenceInput({ criteria, setMatrix }) {
         matrix[j][i] = 1 / val;
       }
     }
+
     setMatrix(matrix);
-    setIsGenerated(true); 
+    setIsGenerated(true);
   };
 
   return (
     <div className="space-y-6">
-      <div className="bg-blue-50 p-4 rounded-xl text-blue-800 text-sm border border-blue-100 flex gap-3">
-        <AlertCircle size={20} className="shrink-0" />
-        <p><strong>Échelle de Saaty :</strong> Comparez l'importance relative des critères. 1 signifie égalité, 9 signifie une importance extrême de l'un sur l'autre.</p>
+
+      {/* INFO */}
+      <div className="bg-blue-50 p-4 rounded-xl text-blue-800 text-sm border flex gap-3">
+        <AlertCircle size={20} />
+        <p>
+          Sélectionnez le niveau d'importance entre chaque paire de critères.
+          <br />
+          Exemple : <strong>1/5</strong> signifie que le critère de gauche est moins important que celui de droite.
+        </p>
       </div>
 
+      {/* COMPARAISONS */}
       <div className="space-y-4">
         {criteria.map((c1, i) =>
           criteria.map((c2, j) =>
             i < j ? (
-              <div key={`${i}-${j}`} className="p-5 bg-slate-50 rounded-2xl border border-slate-200 transition-all hover:border-blue-300">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">{c1}</span>
-                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full font-bold text-lg">{prefs[`${i}-${j}`] || 1}</span>
-                  <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">{c2}</span>
+              <div
+                key={`${i}-${j}`}
+                className="p-5 bg-slate-50 rounded-2xl border border-slate-200"
+              >
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-semibold">{c1}</span>
+
+                  <span className="text-blue-600 font-bold">
+                    {prefs[`${i}-${j}`]
+                      ? prefs[`${i}-${j}`].toFixed(3)
+                      : "1"}
+                  </span>
+
+                  <span className="font-semibold">{c2}</span>
                 </div>
-                <input 
-                  type="range" min="1" max="9" step="1"
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                  onChange={(e) => handleChange(i, j, e.target.value)}
-                />
+
+                <select
+                  className="w-full p-2 border rounded-lg"
+                  defaultValue="1"
+                  onChange={(e) =>
+                    handleChange(i, j, e.target.value)
+                  }
+                >
+                  {scaleOptions.map((opt, index) => (
+                    <option key={index} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
               </div>
             ) : null
           )
         )}
       </div>
 
-      <button onClick={generateMatrix} className="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg">
-        Générer la matrice de comparaison
+      {/* BOUTON */}
+      <button
+        onClick={generateMatrix}
+        className="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800"
+      >
+        Générer la matrice
       </button>
 
-      {/* ✅ Message de succès dynamique */}
+      {/* SUCCESS */}
       {isGenerated && (
-        <div className="flex items-center gap-3 p-4 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl animate-bounce-short">
+        <div className="flex items-center gap-3 p-4 bg-emerald-50 text-emerald-700 border rounded-xl">
           <CheckCircle2 size={24} />
-          <p className="font-medium">Votre matrice est bien générée ! Cliquez maintenant sur <strong>"Lancer l'analyse"</strong> ci-dessous.</p>
+          <p>Matrice générée avec succès ✅</p>
         </div>
       )}
     </div>

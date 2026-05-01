@@ -83,6 +83,7 @@ Le moteur de calcul effectue les opérations suivantes :
 *   **Icônes :** Lucide React.
 *   **Graphiques :** Chart.js & React-Chartjs-2.
 
+ L'application est 
 ---
 *Développé par FOGUEM Junior Kieran etudiant a l'Université de Yaoundé I.*
 ```

@@ -52,7 +52,7 @@ export default function Results({ results, onReset }) {
           <h3 className="text-4xl font-black mt-1">{best.name}</h3>
           <p className="mt-4 text-blue-100 flex items-center gap-2">
             <Trophy size={20} className="text-yellow-400" />
-            Score final : {best.score.toFixed(2)}[cite: 1]
+            Score final : {best.score.toFixed(2)}
           </p>
         </div>
         <Trophy size={80} className="opacity-20 hidden sm:block" />
